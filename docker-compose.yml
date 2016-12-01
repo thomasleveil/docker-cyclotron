@@ -1,0 +1,25 @@
+mongodb:
+  image: mongo:3.2.3
+  volumes:
+    - ./datadir:/data/db
+
+web:
+  image: nginx:1.11-alpine
+  volumes:
+    - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    - ./nginx-api.conf:/etc/nginx/conf.d/api.conf:ro
+    - ./configService.js:/opt/app/cyclotron-site/_public/js/conf/configService.js:ro
+  volumes_from:
+    - api
+  ports:
+    - ${CYCLOTRON_PORT}:777
+  links:
+    - api
+
+api:
+  build: . 
+  command: node /opt/app/cyclotron-svc/app.js
+  links:
+    - mongodb
+  volumes:
+    - ./config.js:/opt/app/cyclotron-svc/config/config.js:ro

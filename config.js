@@ -7,7 +7,7 @@ module.exports = {
      * Authentication:
      *      mongodb://<username>:<password>@<host1[:port]>,<host2[:port]>,...<hostN[:port]>/<databaseName>
      */
-    mongodb: 'mongodb://mongo/cyclotron',
+    mongodb: 'mongodb://mongodb/cyclotron',
 
     /* Port to run the Cyclotron Service on */
     port: 8077,
@@ -15,7 +15,7 @@ module.exports = {
     /* URL for website using this service
      * Used for exporting Dashboards as PDFs via CasperJS
      */
-    webServer: 'http://localhost:777',
+    webServer: ':///',
 
     /* Key for encrypting/decrypting strings on the /crypto endpoint */
     encryptionKey: '',
