@@ -4,6 +4,11 @@
 
 [Cyclotron](http://www.cyclotron.io) is a web application for constructing dashboards.  This is a docker container to run Cyclotron.
 
+This container is made up of two components:
+
+* The Cyclotron API service
+* The Cyclotron web application
+
 ## Prerequisites
 
 ### Mongo Database
@@ -25,6 +30,43 @@ To download the service configuration file (**config.js**), run the following co
 wget https://raw.githubusercontent.com/hannah98/docker-cyclotron/master/config.js
 ```
 
+Once this file is downloaded, you should edit it to change the hostname for the mongo database.  In the run example above where the mongodb is started, the container name is ```mongo```.  That means you should open this ```config.js``` file and change the database host to ```mongo```.
+
+For example:
+
+* Change this, from localhost:
+
+```
+module.exports = {
+mongodb: 'localhost://mongo/cyclotron',
+```
+
+* To this, your mongodb hostname:
+
+```
+module.exports = {
+mongodb: 'mongodb://mongo/cyclotron',
+```
+
+Additionally, the web service API defaults to running on port 8077.  If you need it to run on a different port, you must edit this ```config.js``` file and change the ```port``` line from 8077 to your new value.  For example, if you want to change the web service api to port 8888:
+
+* Change this:
+
+```
+/* Port to run the Cyclotron Service on */
+    port: 8077,
+```
+
+* To this:
+
+```
+/* Port to run the Cyclotron Service on */
+    port: 8888,
+```
+
+If you do change the port from 8077, you must also tell the site which port to find the api (see the next section).
+
+
 #### Site configuration file
 
 To download the site configuration file (**configService.js**), run the following command on your host system:
@@ -32,6 +74,9 @@ To download the site configuration file (**configService.js**), run the followin
 ```
 wget https://raw.githubusercontent.com/hannah98/docker-cyclotron/master/configService.js
 ```
+
+The web service API defaults to running on port 8077 (see the run command below).  If you change the port in your docker run command from 8077 to a new value, you must edit this ```configService.js``` file, and change any instances of ```http://localhost:8077``` to the new port value.  For example, if you want the web service API to run on port 8888, change ```http://localhost:8077``` to ```http://localhost:8888``` in the ```configService.js``` file.
+
 
 ## Running this container
 
@@ -52,8 +97,10 @@ docker run -d --name=cyclotron --link mongo:mongo -p 80:8080 -p 8077:8077 -v $PW
 * **```-d```** - runs the container in the background
 * **```--name=cyclotron```** - the name of the container
 * **```--link mongo:mongo```** - links to the mongo container.  The first "mongo" must match the name of your running mongo container.
-* **```-d```** - runs the container in the background
-* **```-d```** - runs the container in the background
+* **```-p 80:8080```** - The port for the web application.  It runs on port 8080 inside the container, and in this example it is mapping to port 80 on your host server.  If you wish to run on a different port, change the 80 before the colon to a new value.
+* **```-p 8077:8077```** - The port for the web service.  It runs on port 8077 inside the container, and in this example it is mapping to port 8077 on your host server.  If you wish to run on a different port, change the 80 before the colon to a new value.  **NOTE: If you change this port to a different value, you must update the ```configService.js``` file to set the correct port.**
+* **```-v```** - mounts the configuration files into your running container.  The path before the colon is the path to the configuration file on your host server.
+
 
 
 
