@@ -16,9 +16,10 @@ RUN apt-get update -q && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /root/.cache
 
+# problem with default version of the mongoose module so changing the version...
 RUN git clone https://github.com/ExpediaInceCommercePlatform/cyclotron.git /cyclotron && \
     cd /cyclotron/cyclotron-svc && \
-    sed -i -e 's~"mongoose": .*$~"mongoose": "^4.7.1",~g' package.json && \ # problem with default version
+    sed -i -e 's~"mongoose": .*$~"mongoose": "^4.7.1",~g' package.json && \ 
     npm install && \
     cd /cyclotron/cyclotron-site && \
     npm install && \
