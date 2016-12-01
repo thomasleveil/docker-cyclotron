@@ -8,7 +8,7 @@ cyclotronServices.factory('configService', ['commonConfigService', function(comm
       canPush: true
     }, {
       name: 'Localhost',
-      serviceUrl: 'http://localhost:8888',
+      serviceUrl: 'http://localhost:8077',
       requiresAuth: false,
       canPush: false
     }
@@ -20,7 +20,7 @@ cyclotronServices.factory('configService', ['commonConfigService', function(comm
     return options;
   }, {});
   exports = {
-    restServiceUrl: 'http://localhost:8888',
+    restServiceUrl: 'http://localhost:8077',
     authentication: {
       enable: false,
       loginMessage: 'Please login using your LDAP username and password.'
