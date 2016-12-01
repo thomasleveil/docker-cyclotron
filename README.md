@@ -1,4 +1,4 @@
-# docker-cyclotron
+# furiousgeorge/cyclotron
 
 ## Intro
 
