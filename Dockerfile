@@ -12,7 +12,7 @@ ENV APTLIST="supervisor"
 
 RUN apt-get update -q && \
     apt-get install $BUILDLIST $APTLIST -qy && \
-    npm install --global gulp
+    npm install --global gulp && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /root/.cache
 
