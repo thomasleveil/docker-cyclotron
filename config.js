@@ -10,7 +10,7 @@ module.exports = {
     mongodb: 'mongodb://mongo/cyclotron',
 
     /* Port to run the Cyclotron Service on */
-    port: 8888,
+    port: 8077,
 
     /* URL for website using this service
      * Used for exporting Dashboards as PDFs via CasperJS
